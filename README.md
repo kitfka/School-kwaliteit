@@ -5,16 +5,16 @@ Druk op de om de Github actions te zien die de Cypress tests uitvoeren.
 
 ## Korte uitleg repo
 
-Dit is voor het vak dat gaat over kwaliteit ISO 25010 enzo.
+Dit is voor het vak dat gaat over kwaliteit ISO 25010 etc.
 
 Omdat de code geschreven voor dit project eigenlijk voor persoonlijk gebruik bedoeld was zal ik hier een copy plaatsen met andere namen.
 
 ## CONTEXT cs unit tests
 
-De unit tests zijn geschreven voor een Command Line tool. Het idee is dat ik makkelijker zelf CLI programmas kan schrijven.
+De unit tests zijn geschreven voor een Command Line tool. Het idee is dat ik makkelijker zelf CLI programma's kan schrijven.
 Zijn er betere open source oplossingen? Maar natuurlijk. Echter wou ik er zelf een schrijven zodat ik er 100% controle over heb! (en omdat het leuk is om te schrijven!)
 
-Deze code word niet uitgevoerd via Github actions. Deze tests worden uitgevoerd als TDD (test driven development) en worden meerdere malen uitgevoerd voordat de code gecommit word.
+Deze code word niet uitgevoerd via Github actions. Deze tests worden uitgevoerd als TDD (test driven development) en worden meerdere malen uitgevoerd voordat de code commit word.
 
 
 
@@ -105,6 +105,7 @@ DevTools listening on ...
 Hier is de code van de controller die op de server staat. Ik weet dat dit eigenlijk niet 100% goed is volgens de rest regels. Maar goed genoeg voor deze test!
 
 Dit is niet 100% de echte code, een paar dingen zijn er voor de veiligheid eruit gehaald + comments
+
 ```csharp
 
 namespace Website.Controllers;
@@ -214,4 +215,55 @@ public class SchoolController : Controller
         return Results.Ok();
     }
 }
+```
+
+
+## CI / CD
+Om CI CD te implementeren voor dit project zou de onderstaande Github action gebruikt kunnen worden.
+
+```yml
+name: CI CD
+
+# Controls when the workflow will run
+on:
+  # Triggers the workflow on push or pull request events but only for the master branch
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+
+# A workflow run is made up of one or more jobs that can run sequentially or in parallel
+jobs:
+  cypress-run:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+      # Install npm dependencies, cache them correctly
+      # and run all Cypress tests
+      - name: Cypress run
+        uses: cypress-io/github-action@v5
+
+  build:
+    # The type of runner that the job will run on
+    runs-on: ubuntu-latest
+
+    # Steps represent a sequence of tasks that will be executed as part of the job
+    steps:
+      # Push to the correct repo?
+      - name: Push to the correct backup repos
+        run: |
+          echo ${{ github.repository }}
+          if [[ "${{ github.repository }}" == "kitfka/School-kwaliteit" ]]
+          then
+            git clone https://${{ secrets.SUPER_TOKEN_GITHUB }}@github.com/kitfka/Aloft
+            cd Aloft
+            git config user.name "username"
+            git config user.email "email"
+            git remote -v
+            git push https://${{ secrets.SUPER_TOKEN_GITHUB }}@github.com/live/location
+          fi
 ```
