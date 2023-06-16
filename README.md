@@ -1,16 +1,20 @@
 # School-kwaliteit
 [![End-to-end tests](https://github.com/kitfka/School-kwaliteit/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/kitfka/School-kwaliteit/actions/workflows/main.yml)
 
+Druk op de om de Github actions te zien die de Cypress tests uitvoeren.
+
 ## Korte uitleg repo
 
 Dit is voor het vak dat gaat over kwaliteit ISO 25010 enzo.
 
 Omdat de code geschreven voor dit project eigenlijk voor persoonlijk gebruik bedoeld was zal ik hier een copy plaatsen met andere namen.
 
-## CONTEXT
+## CONTEXT cs unit tests
 
 De unit tests zijn geschreven voor een Command Line tool. Het idee is dat ik makkelijker zelf CLI programmas kan schrijven.
 Zijn er betere open source oplossingen? Maar natuurlijk. Echter wou ik er zelf een schrijven zodat ik er 100% controle over heb! (en omdat het leuk is om te schrijven!)
+
+Deze code word niet uitgevoerd via Github actions. Deze tests worden uitgevoerd als TDD (test driven development) en worden meerdere malen uitgevoerd voordat de code gecommit word.
 
 
 
@@ -22,7 +26,7 @@ De test kan ook uitgevoerd worden met het command:
 `npx cypress run`
 
 
-Hier is een voorbeeld van de mogelijke console output gegeven
+Hier is een voorbeeld van de mogelijke console output gegeven:
 ```bash
 DevTools listening on ...
 
