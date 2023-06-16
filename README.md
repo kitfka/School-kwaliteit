@@ -1,4 +1,5 @@
 # School-kwaliteit
+[![End-to-end tests](https://github.com/kitfka/School-kwaliteit/actions/workflows/main.yml/badge.svg?branch=main)](https://github.com/kitfka/School-kwaliteit/actions/workflows/main.yml)
 
 ## Korte uitleg repo
 
